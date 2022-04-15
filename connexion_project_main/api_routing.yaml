@@ -1,0 +1,92 @@
+openapi: 3.0.0
+servers:
+  - description: Simple People App
+    url: http://localhost:5000/
+info:
+  description: This is a simple API
+  version: "1.0.0"
+  title: Simple shipment API
+  contact:
+    email: hello@gmail.com
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+
+paths:
+  /people/create:
+    post:
+      operationId: people.post
+      description: Adds an item to the system
+      responses:
+        '201':
+          description: item created
+      requestBody:
+        x-body-name: body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/person'
+        description: person item to add
+        
+
+  /people/{id}:
+    get:
+      operationId: people.get_people
+      responses:
+        200:
+          description: Successful read people list operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/person'
+        400:
+          description: bad input parameter
+  
+
+  /people/update/{id}:
+    put:
+      operationId: people.put
+      summary: Update a Shipment in the people list
+      description: Update a Shipment in the Shipments list
+      requestBody:
+        x-body-name: body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/person'
+      responses:
+        200:
+          description: Successfully updated a shipment in Shipments list
+
+
+
+  /people/delete/{id}:
+    delete:
+      operationId: people.delete
+      summary: Delete an Item with given ID
+      description: Delete an Item with given ID
+      responses:
+        200:
+          description: Deleted an Item with given ID
+
+
+components:
+  schemas:
+    person:
+      type: object
+      properties:
+        id:
+          type: integer
+        checked:
+          type: boolean
+        name:
+          type: string
+        type:
+          type: string
+        age: 
+          type: integer
+        description:
+          type: string
+
